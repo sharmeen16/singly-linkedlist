@@ -1,0 +1,90 @@
+import java.util.Date;
+import java.util.LinkedList;
+
+// Step 1: Abstract class Shape
+abstract class Shape {
+    private static int nextId = 1;  // Auto-incremented ID
+    private int shapeId;
+    private Date creationTime;
+
+    public Shape() {
+        this.shapeId = nextId++;
+        this.creationTime = new Date();
+    }
+
+    public int getShapeId() {
+        return shapeId;
+    }
+
+    public Date getCreationTime() {
+        return creationTime;
+    }
+
+    public abstract void draw();
+}
+
+// Step 2: Concrete classes for Rectangle, Square, and Triangle
+class Rectangle extends Shape {
+    private double length;
+    private double width;
+
+    public Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Rectangle (ID: " + getShapeId() + ") with length: " + length + " and width: " + width);
+    }
+}
+
+class Square extends Shape {
+    private double sideLength;
+
+    public Square(double sideLength) {
+        this.sideLength = sideLength;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Square (ID: " + getShapeId() + ") with side length: " + sideLength);
+    }
+}
+
+class Triangle extends Shape {
+    private double base;
+    private double height;
+
+    public Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Triangle (ID: " + getShapeId() + ") with base: " + base + " and height: " + height);
+    }
+}
+
+// Step 3: Create a linked list of shapes
+public class Main {
+    public static void main(String[] args) {
+        LinkedList<Shape> shapeList = new LinkedList<>();
+
+        // Step 4: Create and add shapes to the list
+        Rectangle rectangle = new Rectangle(5.0, 3.0);
+        Square square = new Square(4.0);
+        Triangle triangle = new Triangle(6.0, 7.0);
+
+        shapeList.add(rectangle);
+        shapeList.add(square);
+        shapeList.add(triangle);
+
+        // Print shape information
+        for (Shape shape : shapeList) {
+            shape.draw();
+            System.out.println("Created at: " + shape.getCreationTime());
+        }
+    }
+}
